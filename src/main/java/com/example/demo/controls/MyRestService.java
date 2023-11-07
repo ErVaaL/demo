@@ -1,7 +1,10 @@
-package com.example.demo;
+package com.example.demo.controls;
 
+import com.example.demo.exceptions.FoxIllegalArgumentException;
+import com.example.demo.objects.Fox;
+import com.example.demo.exceptions.FoxNotFoundException;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,9 +18,10 @@ public class MyRestService {
         this.repository.save(new Fox("Alt",9));
 
     }
-    public List<Fox> getFoxByTails(int tails){
-        return (List<Fox>) this.repository.findAllByTails(tails);
-    }
+    public List<Fox> getFoxByTails(int tails){return (List<Fox>) this.repository.findAllByTails(tails);}
+    public Optional<Fox> getFoxById(Long id){
+        if(!repository.existsById(id)) throw new FoxNotFoundException();
+        return this.repository.findById(id);}
     public List<Fox> getAllAnimals(){
         return (List<Fox>) repository.findAll();
     }

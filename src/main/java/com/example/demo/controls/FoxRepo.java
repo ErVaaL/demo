@@ -1,5 +1,6 @@
-package com.example.demo;
+package com.example.demo.controls;
 
+import com.example.demo.objects.Fox;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

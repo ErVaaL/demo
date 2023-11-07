@@ -1,8 +1,10 @@
-package com.example.demo;
+package com.example.demo.controls;
 
+import com.example.demo.objects.Fox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class MyRestController {
@@ -17,6 +19,9 @@ public class MyRestController {
 
     @GetMapping("/getAnimal/{tails}")
     public List<Fox> findFoxByTails(@PathVariable("tails") int tails){return this.myRestService.getFoxByTails(tails);}
+
+    @GetMapping("/getAnimalById/{id}")
+    public Optional<Fox> findFoxById(@PathVariable("id") Long id){return this.myRestService.getFoxById(id);}
 
     @PutMapping("/updateAnimal")
     public void putAnimal(@RequestBody Fox animal){myRestService.putAnimal(animal);}
