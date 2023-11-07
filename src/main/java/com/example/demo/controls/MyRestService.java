@@ -1,5 +1,6 @@
 package com.example.demo.controls;
 
+import com.example.demo.exceptions.FoxFailedToUpdateException;
 import com.example.demo.exceptions.FoxIllegalArgumentException;
 import com.example.demo.objects.Fox;
 import com.example.demo.exceptions.FoxNotFoundException;
@@ -26,10 +27,11 @@ public class MyRestService {
         return (List<Fox>) repository.findAll();
     }
     public void addAnimal(Fox animal){
-        if(!repository.existsById(animal.getId())) repository.save(animal);
+        repository.save(animal);
     }
     public void putAnimal(Fox animal){
-        if(repository.existsById(animal.getId())) repository.save(animal);
+        if(!repository.existsById(animal.getId())) throw new FoxFailedToUpdateException();
+        repository.save(animal);
     }
     public void deleteAnimal(Long id){
         this.repository.deleteById(id);

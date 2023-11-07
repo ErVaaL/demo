@@ -1,5 +1,6 @@
 package com.example.demo.controls;
 
+import com.example.demo.exceptions.FoxFailedToUpdateException;
 import com.example.demo.exceptions.FoxIllegalArgumentException;
 import com.example.demo.exceptions.FoxNotFoundException;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,10 @@ public class MyRestEntityExceptionHandler extends ResponseEntityExceptionHandler
     }
     @ExceptionHandler(value = {FoxIllegalArgumentException.class})
     protected ResponseEntity<String> handleNullPointerException(RuntimeException ex, WebRequest request){
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+    @ExceptionHandler(value = {FoxFailedToUpdateException.class})
+    protected ResponseEntity<String> handleFailureException(RuntimeException ex, WebRequest request){
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 }
