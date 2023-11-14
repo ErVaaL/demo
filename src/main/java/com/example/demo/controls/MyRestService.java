@@ -1,5 +1,6 @@
 package com.example.demo.controls;
 
+import com.example.demo.exceptions.FoxAlreadyExistsException;
 import com.example.demo.exceptions.FoxFailedToUpdateException;
 import com.example.demo.exceptions.FoxIllegalArgumentException;
 import com.example.demo.objects.Fox;
@@ -21,12 +22,13 @@ public class MyRestService {
     }
     public List<Fox> getFoxByTails(int tails){return (List<Fox>) this.repository.findAllByTails(tails);}
     public Optional<Fox> getFoxById(Long id){
-        if(!repository.existsById(id)) throw new FoxNotFoundException();
+        if(repository.findById(id).isEmpty()) throw new FoxNotFoundException();
         return this.repository.findById(id);}
     public List<Fox> getAllAnimals(){
         return (List<Fox>) repository.findAll();
     }
     public void addAnimal(Fox animal){
+        if(repository.findById(animal.getId()).isPresent()) throw new FoxAlreadyExistsException();
         repository.save(animal);
     }
     public void putAnimal(Fox animal){

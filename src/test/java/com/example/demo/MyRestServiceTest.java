@@ -2,6 +2,8 @@ package com.example.demo;
 
 import com.example.demo.controls.FoxRepo;
 import com.example.demo.controls.MyRestService;
+import com.example.demo.exceptions.FoxAlreadyExistsException;
+import com.example.demo.exceptions.FoxNotFoundException;
 import com.example.demo.objects.Fox;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,10 +13,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.io.OptionalDataException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 public class MyRestServiceTest {
     @Mock
@@ -37,7 +43,7 @@ public class MyRestServiceTest {
     public void findAnimalsByTails(){
         int tails = 9;
         List<Fox> foxesList = new ArrayList<>();
-        Mockito.when(repo.findAllByTails(tails)).thenReturn(foxesList);
+        when(repo.findAllByTails(tails)).thenReturn(foxesList);
 
        List<Fox> result = service.getFoxByTails(tails);
        assertEquals(foxesList,result);
@@ -45,28 +51,47 @@ public class MyRestServiceTest {
     @Test
     public void getAllAnimals(){
         List<Fox> listOfFoxes = new ArrayList<>();
-        Mockito.when(repo.findAll()).thenReturn(listOfFoxes);
+        when(repo.findAll()).thenReturn(listOfFoxes);
 
         List<Fox> result = service.getAllAnimals();
         assertEquals(listOfFoxes,result);
     }
     @Test
-    public void testSaving(){
-        String name = "TestFox";
-        int tails = 5;
-        Fox testFox1 = new Fox(name, tails);
+    public void testFoxAdding(){
+        Fox testFox1 = new Fox("TestFox", 5);
         ArgumentCaptor<Fox> captor = ArgumentCaptor.forClass(Fox.class);
-        Mockito.when(repo.save(captor.capture())).thenReturn(testFox1);
+        when(repo.save(captor.capture())).thenReturn(testFox1);
 
         service.addAnimal(testFox1);
-        Mockito.verify(repo, Mockito.times(4))
+        verify(repo, times(4))
                 .save(Mockito.any());
         Fox foxFromSave = captor.getValue();
         assertEquals(testFox1,foxFromSave);
     }
     @Test
-    public void testDeleting(){
-        long id = 1;
+    public void testFoxAddingThrowsException(){
+        Fox testFox1 = new Fox("TestFox", 5);
+        testFox1.setId(2L);
+
+        when(repo.findById(2L)).thenReturn(Optional.of(testFox1));
+        assertThrows(FoxAlreadyExistsException.class,()->{
+            service.addAnimal(testFox1);
+        });
+    }
+    @Test
+    public void testFoxFindById(){
+        Fox testFox1 = new Fox("TestFox", 5);
+        testFox1.setId(4L);
+        when(repo.findById(testFox1.getId())).thenReturn(Optional.of(testFox1));
+
+        Optional<Fox> result = service.getFoxById(4L);
+        assertEquals(Optional.of(testFox1),result);
+    }
+    @Test
+    public void testFoxFindByIdThrowsNotFound(){
+        assertThrows(FoxNotFoundException.class, ()->{
+            service.getFoxById(5L);
+        });
 
     }
 }
