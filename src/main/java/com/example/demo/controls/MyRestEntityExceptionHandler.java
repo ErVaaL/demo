@@ -1,5 +1,6 @@
 package com.example.demo.controls;
 
+import com.example.demo.exceptions.FoxAlreadyExistsException;
 import com.example.demo.exceptions.FoxFailedToUpdateException;
 import com.example.demo.exceptions.FoxIllegalArgumentException;
 import com.example.demo.exceptions.FoxNotFoundException;
@@ -14,6 +15,10 @@ public class MyRestEntityExceptionHandler extends ResponseEntityExceptionHandler
     @ExceptionHandler(value = {FoxNotFoundException.class})
     protected ResponseEntity<Object> handleIllegalArgument(RuntimeException ex, WebRequest request){
         return ResponseEntity.notFound().build();
+    }
+    @ExceptionHandler(value = {FoxAlreadyExistsException.class})
+    protected ResponseEntity<Object> handleAlreadyExists(RuntimeException ex, WebRequest request){
+        return ResponseEntity.badRequest().body(ex.getMessage());
     }
     @ExceptionHandler(value = {FoxIllegalArgumentException.class})
     protected ResponseEntity<String> handleNullPointerException(RuntimeException ex, WebRequest request){
