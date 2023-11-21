@@ -7,6 +7,7 @@ import com.example.demo.objects.Fox;
 import com.example.demo.exceptions.FoxNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,5 +38,12 @@ public class MyRestService {
     public void deleteAnimal(Long id){
         if(repository.findById(id).isPresent())this.repository.deleteById(id);
         else throw new FoxNotFoundException();
+    }
+
+    public List<Fox> filterFoxByName(String name) {
+        var foxes = (List<Fox>)this.repository.findAll();
+        return foxes.stream()
+                .filter(x->x.getName().contains(name))
+                .toList();
     }
 }
