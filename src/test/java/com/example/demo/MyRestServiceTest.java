@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class MyRestServiceTest {
@@ -91,12 +90,11 @@ public class MyRestServiceTest {
     }
     @Test
     public void testFoxFilterByName(){
-        List<Fox> testFox = new ArrayList<>();
-        testFox.add(new Fox("Lumi", 9));
-        testFox.add(new Fox("LumiAlt", 9));
-        when(service.filterFoxByName("Lumi")).thenReturn(testFox);
+        var fox1 = new Fox("Lumi", 9);
+        var fox2 = new Fox("LumiAlt", 9);
+        when(repo.findAll()).thenReturn(List.of(fox1,fox2));
 
         var result = service.filterFoxByName("Lumi");
-        assertEquals(testFox,result);
+        assertEquals(List.of(fox1),result);
     }
 }

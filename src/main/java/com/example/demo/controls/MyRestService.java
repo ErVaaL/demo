@@ -43,7 +43,7 @@ public class MyRestService {
     public List<Fox> filterFoxByName(String name) {
         var foxes = (List<Fox>)this.repository.findAll();
         return foxes.stream()
-                .filter(x->x.getName().contains(name))
+                .filter(x->x.getName().equals(name))
                 .toList();
     }
 }

@@ -33,11 +33,13 @@ public class MyRestControllerTest {
     private MyRestService service;
     @InjectMocks
     private MyRestController controller;
+
     @BeforeEach
     public void setup(){
         this.mockMvc = MockMvcBuilders.standaloneSetup(
                 new MyRestEntityExceptionHandler(),controller).build();
     }
+
     @Test
     public void getFoxByIdReturns404WhenFoxNotFound() throws Exception{
         when(service.getFoxById(7L)).thenThrow(FoxNotFoundException.class);
@@ -54,16 +56,15 @@ public class MyRestControllerTest {
                 .andExpect(jsonPath("$.tails").value(9))
                 .andExpect(status().isOk());
     }
+
     @Test
     public void filterFoxesByName() throws Exception{
-        List<Fox> testFox = new ArrayList<>();
-        testFox.add(new Fox("Lumi", 9));
-        testFox.add(new Fox("LumiAlt",9));
-        when(service.filterFoxByName("Lumi")).thenReturn(testFox);
+        var fox1 = new Fox("Lumi", 9);
+        var fox2 = new Fox("LumiAlt", 9);
+        when(service.filterFoxByName("Lumi")).thenReturn(List.of(fox1));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/filterAnimalByName/Lumi"))
                 .andExpect(jsonPath("$.[0].name").value("Lumi"))
-                .andExpect(jsonPath("$.[1].name").value("LumiAlt"))
                 .andExpect(status().isOk());
     }
 }
