@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.io.OptionalDataException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -75,8 +74,7 @@ public class MyRestServiceTest {
 
         when(repo.findById(2L)).thenReturn(Optional.of(testFox1));
         assertThrows(FoxAlreadyExistsException.class,()->{
-            service.addAnimal(testFox1);
-        });
+            service.addAnimal(testFox1);});
     }
     @Test
     public void testFoxFindById(){
