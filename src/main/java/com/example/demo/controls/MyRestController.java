@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @RestController
 public class MyRestController {
-    private MyRestService myRestService;
+    private final MyRestService myRestService;
     @Autowired
     public MyRestController(MyRestService myRestService) {
         this.myRestService = myRestService;

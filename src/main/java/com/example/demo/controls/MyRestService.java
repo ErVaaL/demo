@@ -23,10 +23,9 @@ public class MyRestService {
     public List<Fox> getFoxByTails(int tails){return (List<Fox>) this.repository.findAllByTails(tails);}
     public Optional<Fox> getFoxById(Long id){
         if(repository.findById(id).isEmpty()) throw new FoxNotFoundException();
-        return this.repository.findById(id);}
-    public List<Fox> getAllAnimals(){
-        return (List<Fox>) repository.findAll();
-    }
+        return this.repository
+                .findById(id);}
+    public List<Fox> getAllAnimals(){return (List<Fox>) repository.findAll();}
     public void addAnimal(Fox animal){
         if(repository.findById(animal.getId()).isPresent()) throw new FoxAlreadyExistsException();
         repository.save(animal);
@@ -36,6 +35,7 @@ public class MyRestService {
         repository.save(animal);
     }
     public void deleteAnimal(Long id){
-        this.repository.deleteById(id);
+        if(repository.findById(id).isPresent())this.repository.deleteById(id);
+        else throw new FoxNotFoundException();
     }
 }

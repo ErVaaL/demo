@@ -26,6 +26,7 @@ public class Fox{
     }
 
     protected Fox(){}
+
     public Fox (String name, int tails){
         this.name=name;
         this.tails=tails;
