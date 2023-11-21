@@ -73,8 +73,7 @@ public class MyRestServiceTest {
         testFox1.setId(2L);
 
         when(repo.findById(2L)).thenReturn(Optional.of(testFox1));
-        assertThrows(FoxAlreadyExistsException.class,()->{
-            service.addAnimal(testFox1);});
+        assertThrows(FoxAlreadyExistsException.class,()-> service.addAnimal(testFox1));
     }
     @Test
     public void testFoxFindById(){
@@ -87,9 +86,17 @@ public class MyRestServiceTest {
     }
     @Test
     public void testFoxFindByIdThrowsNotFound(){
-        assertThrows(FoxNotFoundException.class, ()->{
-            service.getFoxById(5L);
-        });
+        assertThrows(FoxNotFoundException.class, ()-> service.getFoxById(5L));
 
+    }
+    @Test
+    public void testFoxFilterByName(){
+        List<Fox> testFox = new ArrayList<>();
+        testFox.add(new Fox("Lumi", 9));
+        testFox.add(new Fox("LumiAlt", 9));
+        when(service.filterFoxByName("Lumi")).thenReturn(testFox);
+
+        var result = service.filterFoxByName("Lumi");
+        assertEquals(testFox,result);
     }
 }

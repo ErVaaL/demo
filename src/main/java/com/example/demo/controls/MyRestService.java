@@ -18,7 +18,7 @@ public class MyRestService {
        this.repository = repo;
         this.repository.save(new Fox("Kokos",1));
         this.repository.save(new Fox("Lumi",9));
-        this.repository.save(new Fox("Alt",9));
+        this.repository.save(new Fox("LumiAlt",9));
 
     }
     public List<Fox> getFoxByTails(int tails){return (List<Fox>) this.repository.findAllByTails(tails);}
