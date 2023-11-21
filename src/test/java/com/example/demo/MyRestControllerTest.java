@@ -60,7 +60,6 @@ public class MyRestControllerTest {
     @Test
     public void filterFoxesByName() throws Exception{
         var fox1 = new Fox("Lumi", 9);
-        var fox2 = new Fox("LumiAlt", 9);
         when(service.filterFoxByName("Lumi")).thenReturn(List.of(fox1));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/filterAnimalByName/Lumi"))
