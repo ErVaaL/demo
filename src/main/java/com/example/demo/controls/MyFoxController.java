@@ -6,6 +6,7 @@ import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,6 +25,11 @@ public class MyFoxController {
         model.addAttribute("foxes", service.getAllAnimals());
         return "index";
     }
+    @GetMapping(value = "/error")
+    public String getErrorMessage(Model model){
+
+        return "error";
+    }
 
     @GetMapping(value = "/addFoxToBase")
     public String getFoxView(Model model){
@@ -31,7 +37,7 @@ public class MyFoxController {
         return "addFoxToBase";
     }
     @PostMapping(value = "/addFoxToBase")
-    public String addFox(Fox fox, Model model, RedirectAttributes redirectAttributes){
+    public String addFox( Model model, RedirectAttributes redirectAttributes, @ModelAttribute Fox fox){
         if(fox.getTails() < 1){
             model.addAttribute("errorMessage", "fox has to have tail");
             return "addFoxToBase";

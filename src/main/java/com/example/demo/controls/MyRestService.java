@@ -28,7 +28,7 @@ public class MyRestService {
                 .findById(id);}
     public List<Fox> getAllAnimals(){return (List<Fox>) repository.findAll();}
     public void addAnimal(Fox animal){
-        if(repository.findById(animal.getId()).isPresent()) throw new FoxAlreadyExistsException();
+        if(animal.getId() != null) throw new FoxAlreadyExistsException();
         repository.save(animal);
     }
     public void putAnimal(Fox animal){
