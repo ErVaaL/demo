@@ -5,9 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -44,6 +42,21 @@ public class MyFoxController {
         }
         service.addAnimal(fox);
         redirectAttributes.addFlashAttribute("successMessage", "added successfully");
+        return "redirect:/index";
+    }
+    @GetMapping(value = "/editFox/{id}")
+    public String editFox(Model model, @PathVariable("id") String id){
+        model.addAttribute("fox", new Fox(Long.parseLong(id),"",0));
+        return "editFox";
+    }
+    @PutMapping(value = "/editFox/{id}")
+    public String editFox(Model model, RedirectAttributes redirectAttributes, @ModelAttribute Fox fox){
+        if(fox.getTails() < 1 || fox.getName().trim().equals(null)){
+            model.addAttribute("errorMessage", "Neither of fields can be null");
+            return "editFox";
+        }
+        service.putAnimal(fox);
+        redirectAttributes.addFlashAttribute("successMessage", "Fox edited");
         return "redirect:/index";
     }
 

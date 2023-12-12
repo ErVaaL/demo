@@ -18,15 +18,16 @@
             <th>ID </th>
         <th>Name </th>
         <th>Tails </th>
+        <th colspan="2">Options</th>
         </thead>
         <tbody>
         <tr th:each="fox : ${foxes}">
             <td th:text="${fox.id}"></td>
             <td th:text="${fox.name}"></td>
             <td th:text="${fox.tails}"></td>
-<!--            <td>-->
-<!--                <a th:href=""/>-->
-<!--            </td>-->
+            <td>
+                <a th:href="@{'/editFox/'+ ${fox.id}}">Edit</a>
+            </td>
         </tr>
         </tbody>
     </table>
