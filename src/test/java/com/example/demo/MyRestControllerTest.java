@@ -1,8 +1,8 @@
 package com.example.demo;
 
-import com.example.demo.controls.MyRestController;
-import com.example.demo.controls.MyRestEntityExceptionHandler;
-import com.example.demo.controls.MyRestService;
+import com.example.demo.controls.controllers.MyRestController;
+import com.example.demo.controls.exceptionhandle.MyRestEntityExceptionHandler;
+import com.example.demo.controls.service.MyRestService;
 import com.example.demo.exceptions.FoxNotFoundException;
 import com.example.demo.objects.Fox;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,12 +15,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

@@ -31,12 +31,6 @@ public class Fox{
         this.name=name;
         this.tails=tails;
     }
-
-    public Fox(Long id, String name, int tails) {
-        this.id = id;
-        this.name = name;
-        this.tails = tails;
-    }
     public void setName(String name) {
         this.name = name;
     }

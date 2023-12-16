@@ -1,4 +1,4 @@
-package com.example.demo.controls;
+package com.example.demo.controls.exceptionhandle;
 
 import com.example.demo.exceptions.FoxAlreadyExistsException;
 import com.example.demo.exceptions.FoxFailedToUpdateException;

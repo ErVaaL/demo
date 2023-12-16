@@ -13,16 +13,17 @@ text-align: center;
 </head>
 <body>
 <h4 class="center">Edit Fox</h4>
-<form action="#" th:object="${fox}" th:action="@{'/editFox/{id}}" method="post" class="center">
-    <div th:if="${param.id != null">
-        <label>ID: </label><label th:text="${param.id}"></label></br>
+<form action="#" th:object="${fox}" th:action="@{'/editFox/'+ ${id}}" method="post" class="center">
+    <input type="hidden" name="_method" value="PUT" />
+    <div>
+        <label>ID: </label><label th:text="${param.id}"></label>
         <input type="hidden" value="${id}" name="foxID"/>
-<!--        <label>Name</label></br>-->
-<!--        <input th:field="*{name}" type="input" name="name"/>-->
-<!--        <label>Tails</label></br>-->
-<!--        <input th:field="*{tails}" type="input" name="tails"/>-->
+        </br><label>Name</label></br>
+        <input th:field="${fox.name}" type="input" name="name" th:value="${fox.name}"/></br>
+        <label>Tails</label></br>
+        <input th:field="${fox.tails}" type="input" name="tails" th:value="${fox.tails}"/></br></br>
+        <input type="submit" value="Save">
     </div>
-
 </form>
 </body>
 </html>

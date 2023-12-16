@@ -1,7 +1,7 @@
 package com.example.demo;
 
-import com.example.demo.controls.FoxRepo;
-import com.example.demo.controls.MyRestService;
+import com.example.demo.controls.repositories.FoxRepo;
+import com.example.demo.controls.service.MyRestService;
 import com.example.demo.exceptions.FoxAlreadyExistsException;
 import com.example.demo.exceptions.FoxNotFoundException;
 import com.example.demo.objects.Fox;

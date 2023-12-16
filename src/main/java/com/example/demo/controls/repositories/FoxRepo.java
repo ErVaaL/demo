@@ -1,4 +1,4 @@
-package com.example.demo.controls;
+package com.example.demo.controls.repositories;
 
 import com.example.demo.objects.Fox;
 import org.springframework.data.repository.CrudRepository;

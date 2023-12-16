@@ -1,15 +1,13 @@
-package com.example.demo.controls;
+package com.example.demo.controls.service;
 
+import com.example.demo.controls.repositories.FoxRepo;
 import com.example.demo.exceptions.FoxAlreadyExistsException;
 import com.example.demo.exceptions.FoxFailedToUpdateException;
-import com.example.demo.exceptions.FoxIllegalArgumentException;
 import com.example.demo.objects.Fox;
 import com.example.demo.exceptions.FoxNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MyRestService {
@@ -22,10 +20,10 @@ public class MyRestService {
 
     }
     public List<Fox> getFoxByTails(int tails){return (List<Fox>) this.repository.findAllByTails(tails);}
-    public Optional<Fox> getFoxById(Long id){
+    public Fox getFoxById(Long id){
         if(repository.findById(id).isEmpty()) throw new FoxNotFoundException();
         return this.repository
-                .findById(id);}
+                .findById(id).orElse(new Fox("default",2));}
     public List<Fox> getAllAnimals(){return (List<Fox>) repository.findAll();}
     public void addAnimal(Fox animal){
         if(animal.getId() != null) throw new FoxAlreadyExistsException();

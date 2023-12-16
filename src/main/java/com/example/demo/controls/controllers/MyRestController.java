@@ -1,10 +1,10 @@
-package com.example.demo.controls;
+package com.example.demo.controls.controllers;
 
+import com.example.demo.controls.service.MyRestService;
 import com.example.demo.objects.Fox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class MyRestController {
@@ -23,7 +23,7 @@ public class MyRestController {
     @GetMapping("/filterAnimalByName/{name}")
     public List<Fox> filterFoxByName(@PathVariable("name") String name){return this.myRestService.filterFoxByName(name);}
     @GetMapping("/getAnimalById/{id}")
-    public Optional<Fox> findFoxById(@PathVariable("id") Long id){return this.myRestService.getFoxById(id);}
+    public Fox findFoxById(@PathVariable("id") Long id){return this.myRestService.getFoxById(id);}
 
     @PutMapping("/updateAnimal")
     public void putAnimal(@RequestBody Fox animal){myRestService.putAnimal(animal);}

@@ -1,8 +1,8 @@
-package com.example.demo.controls;
+package com.example.demo.controls.controllers;
 
+import com.example.demo.controls.service.MyRestService;
 import com.example.demo.objects.Fox;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,10 +46,11 @@ public class MyFoxController {
     }
     @GetMapping(value = "/editFox/{id}")
     public String editFox(Model model, @PathVariable("id") String id){
-        model.addAttribute("fox", new Fox(Long.parseLong(id),"",0));
+        var fox = service.getFoxById(Long.parseLong(id));
+        model.addAttribute("fox", fox);
         return "editFox";
     }
-    @PutMapping(value = "/editFox/{id}")
+    @PutMapping(value = "/editFox")
     public String editFox(Model model, RedirectAttributes redirectAttributes, @ModelAttribute Fox fox){
         if(fox.getTails() < 1 || fox.getName().trim().equals(null)){
             model.addAttribute("errorMessage", "Neither of fields can be null");
@@ -59,5 +60,4 @@ public class MyFoxController {
         redirectAttributes.addFlashAttribute("successMessage", "Fox edited");
         return "redirect:/index";
     }
-
 }
