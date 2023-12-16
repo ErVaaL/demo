@@ -16,7 +16,7 @@ text-align: center;
 <form action="#" th:object="${fox}" th:action="@{'/editFox/'+ ${id}}" method="post" class="center">
     <input type="hidden" name="_method" value="PUT" />
     <div>
-        <label>ID: </label><label th:text="${param.id}"></label>
+        <label>ID: </label><label th:text="${id}"></label>
         <input type="hidden" value="${id}" name="foxID"/>
         </br><label>Name</label></br>
         <input th:field="${fox.name}" type="input" name="name" th:value="${fox.name}"/></br>

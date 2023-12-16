@@ -60,4 +60,20 @@ public class MyFoxController {
         redirectAttributes.addFlashAttribute("successMessage", "Fox edited");
         return "redirect:/index";
     }
+    @GetMapping(value = "/deleteFox/{id}")
+    public String deleteFox(Model model, @PathVariable("id") String id){
+        var fox = service.getFoxById(Long.parseLong(id));
+        model.addAttribute("fox", fox);
+        return "deleteFox";
+    }
+    @DeleteMapping(value = "deleteFox")
+    public String deleteFox(Model model, RedirectAttributes redirectAttributes, @ModelAttribute Fox fox){
+        if(service.getFoxById(fox.getId()) == null){
+            model.addAttribute("errorMessage", "No such fox in database");
+            return "/deleteFox";
+        }
+        service.deleteAnimal(fox.getId());
+        model.addAttribute("successMessage", "Fox has been deleted");
+        return "redirect:/index";
+    }
 }

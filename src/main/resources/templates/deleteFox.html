@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>DeleteFox</title>
+    <style>
+        .center{
+margin-left: auto;
+margin-right: auto;
+text-align: center;
+}
+    </style>
+</head>
+<body>
+<div style="width: 200px; height 200px; margin-top: 20px; margin-left: auto; margin-right: auto; font-size: large">
+    <label>ID: </label><label th:text="${id}"></label></br>
+    <label>Name: </label><label th:field="${fox.name}" th:text="${fox.name}"></label></br>
+    <label>Tails: </label><label th:field="${fox.tails}" th:text="${fox.tails}"></label>
+</div></br>
+    <form action="#" th:object="${fox}" th:action="@{'/deleteFox/'+ ${id}}" method="post" class="center">
+        <input type="hidden" name="_method" value="DELETE" />
+            <input type="submit" value="Delete">
+    </form>
+</body>
+</html>
