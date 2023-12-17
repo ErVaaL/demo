@@ -50,7 +50,7 @@ public class MyFoxController {
         model.addAttribute("fox", fox);
         return "editFox";
     }
-    @PutMapping(value = "/editFox")
+    @PostMapping(value = "/editFox/{id}")
     public String editFox(Model model, RedirectAttributes redirectAttributes, @ModelAttribute Fox fox){
         if(fox.getTails() < 1 || fox.getName().trim().equals(null)){
             model.addAttribute("errorMessage", "Neither of fields can be null");
@@ -66,7 +66,7 @@ public class MyFoxController {
         model.addAttribute("fox", fox);
         return "deleteFox";
     }
-    @DeleteMapping(value = "deleteFox")
+    @PostMapping(value = "/deleteFox/{id}")
     public String deleteFox(Model model, RedirectAttributes redirectAttributes, @ModelAttribute Fox fox){
         if(service.getFoxById(fox.getId()) == null){
             model.addAttribute("errorMessage", "No such fox in database");

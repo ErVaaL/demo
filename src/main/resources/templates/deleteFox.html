@@ -18,7 +18,6 @@ text-align: center;
     <label>Tails: </label><label th:field="${fox.tails}" th:text="${fox.tails}"></label>
 </div></br>
     <form action="#" th:object="${fox}" th:action="@{'/deleteFox/'+ ${id}}" method="post" class="center">
-        <input type="hidden" name="_method" value="DELETE" />
             <input type="submit" value="Delete">
     </form>
 </body>
