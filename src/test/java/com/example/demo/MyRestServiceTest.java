@@ -80,7 +80,7 @@ public class MyRestServiceTest {
         testFox1.setId(4L);
         when(repo.findById(testFox1.getId())).thenReturn(Optional.of(testFox1));
 
-        Optional<Fox> result = service.getFoxById(4L);
+        Fox result = service.getFoxById(4L);
         assertEquals(Optional.of(testFox1),result);
     }
     @Test

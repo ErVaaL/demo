@@ -47,7 +47,7 @@ public class MyRestControllerTest {
     @Test
     public void getFoxByIdReturns200WhenFoxIsPresent() throws Exception {
         Fox testFox = new Fox("Lumi",9);
-        when(service.getFoxById(2L)).thenReturn(Optional.of(testFox));
+        when(service.getFoxById(2L)).thenReturn(testFox);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/getAnimalById/2"))
                 .andExpect(jsonPath("$.name").value("Lumi"))

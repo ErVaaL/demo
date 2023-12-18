@@ -27,16 +27,16 @@
             <td th:text="${fox.name}"></td>
             <td th:text="${fox.tails}"></td>
             <td>
-                <a th:href="@{'/editFox/'+ ${fox.id}}">Edit</a>
+                <a th:href="@{'/editFox/'+ ${fox.id}}" id="foxEditing">Edit</a>
             </td>
             <td>
-                <a th:href="@{'/deleteFox/'+ ${fox.id}}">Delete</a>
+                <a th:href="@{'/deleteFox/'+ ${fox.id}}" id="foxDeleting">Delete</a>
             </td>
         </tr>
         </tbody>
     </table></br>
     <form action="#" th:action="@{/addFoxToBase}" method="post" class="center">
-        <input type="submit" value="Add fox">
+        <input type="submit" value="Add fox" id="foxAdding" name="foxAdding">
     </form>
 </div>
 </body>

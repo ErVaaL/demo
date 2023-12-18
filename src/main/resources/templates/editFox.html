@@ -16,12 +16,12 @@ text-align: center;
 <form action="#" th:object="${fox}" th:action="@{'/editFox/'+ ${id}}" method="post" class="center">
     <div>
         <label>ID: </label><label th:text="${id}"></label>
-        <input type="hidden" value="${id}" name="foxID"/>
+        <input type="hidden" value="${id}" name="foxID" id="foxID"/>
         </br><label>Name</label></br>
-        <input th:field="${fox.name}" type="input" name="name" th:value="${fox.name}"/></br>
+        <input th:field="${fox.name}" type="input" name="name" th:value="${fox.name}" id="name"/></br>
         <label>Tails</label></br>
-        <input th:field="${fox.tails}" type="input" name="tails" th:value="${fox.tails}"/></br></br>
-        <input type="submit" value="Save">
+        <input th:field="${fox.tails}" type="input" name="tails" th:value="${fox.tails}" id="tails"/></br></br>
+        <input type="submit" value="Save" id="saveFox">
     </div>
 </form>
 </body>
