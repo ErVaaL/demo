@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Animals</title>
+    <style>
+        .center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    }
+    </style>
+</head>
+<body>
+<div class="center">
+    <h4 class="center">Foxes: </h4>
+    <table border="1" class="center">
+        <thead>
+        <th>ID </th>
+        <th>Name </th>
+        <th>Tails </th>
+        <th colspan="2">Options</th>
+        </thead>
+        <tbody>
+        <tr th:each="fox : ${foxes}">
+            <td th:text="${fox.id}"></td>
+            <td th:text="${fox.name}"></td>
+            <td th:text="${fox.tails}"></td>
+            <td>
+                <a th:href="@{'/editFox/'+ ${fox.id}}" id="foxEditing">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{'/deleteFox/'+ ${fox.id}}" id="foxDeleting">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table></br>
+    <form action="#" th:action="@{/addFoxToBase}" method="post" class="center">
+        <input type="submit" value="Add fox" id="foxAdding" name="foxAdding">
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>ADDING FOXES</title>
+    <style>
+        .center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+<h3 class="center">Add Fox</h3>
+<form action="#" th:object="${fox}" th:action="@{/addFoxToBase}" method="post" class="center">
+    <div>
+        <label>Name</label></br>
+        <input th:fiedl="*{name}" type="input" name="name" id="name" required/>
+    </div>
+    <div>
+        <label>Tails</label></br>
+        <input th:field="*{tails}" type="input" name="tails" id="tails" required/>
+    </div>
+    </br><input type="submit" value="Save" id="saveFox"/>
+</form>&nbsp;&nbsp;
+<form action="/index" method="get" class="center">
+    <input type="submit" value="Back" id="goBack">
+</form>
+</body>
+</html>

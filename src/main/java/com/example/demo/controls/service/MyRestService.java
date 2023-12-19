@@ -16,7 +16,6 @@ public class MyRestService {
     private RestClient restClient;
     public MyRestService(){
      this.restClient = RestClient.create();
-
     }
     public List<Fox> getAllAnimals(){
         return restClient
