@@ -1,6 +1,5 @@
 package com.example.demo.controls.service;
 
-import com.example.demo.controls.repositories.FoxRepo;
 import com.example.demo.exceptions.FoxAlreadyExistsException;
 import com.example.demo.exceptions.FoxFailedToUpdateException;
 import com.example.demo.objects.Fox;
