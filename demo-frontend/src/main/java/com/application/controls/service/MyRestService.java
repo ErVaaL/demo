@@ -5,6 +5,7 @@ import com.application.exceptions.FoxFailedToUpdateException;
 import com.application.exceptions.FoxNotFoundException;
 import com.application.objects.Fox;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -14,7 +15,7 @@ import java.util.List;
 @Service
 public class MyRestService {
     public static final String API_URL = "http://localhost:8080";
-    private RestClient restClient;
+    private final RestClient restClient;
     public MyRestService(){
      this.restClient = RestClient.create();
     }
@@ -58,12 +59,12 @@ public class MyRestService {
     }
 
     public void deleteAnimal(Long id){
-        var fox = this.getFoxById(id);
-        if(this.getFoxById(id) != null ){
-         restClient.delete();
-
-        }
-        else throw new FoxNotFoundException();
+        var foundFox = getFoxById(id);
+        if(foundFox == null ) throw new FoxNotFoundException();
+        restClient.delete()
+                 .uri(API_URL + "/deleteAnimal/"+id)
+                .retrieve()
+                .toBodilessEntity();
     }
 
 //    public List<Fox> filterFoxByName(String name) {

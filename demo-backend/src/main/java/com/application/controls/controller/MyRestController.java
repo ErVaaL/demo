@@ -33,9 +33,9 @@ public class MyRestController {
         myRestService.addAnimal(animal);
     }
 
-    @DeleteMapping("/deleteAnimal")
-    public void deleteAnimal(@RequestBody Fox animal) {
-        myRestService.deleteAnimal(animal.getId());
+    @DeleteMapping("/deleteAnimal/{id}")
+    public void deleteAnimal(@PathVariable("id") Long id) {
+        myRestService.deleteAnimal(id);
     }
 
 }

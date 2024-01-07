@@ -70,12 +70,12 @@ public class MyFoxController {
         return "deleteFox";
     }
     @PostMapping(value = "/deleteFox/{id}")
-    public String deleteFox(Model model, RedirectAttributes redirectAttributes, @ModelAttribute Fox fox){
-        if(service.getFoxById(fox.getId()) == null){
+    public String deleteFox(Model model, RedirectAttributes redirectAttributes, @PathVariable("id") Long id){
+        if(service.getFoxById(id) == null){
             model.addAttribute("errorMessage", "No such fox in database");
             return "/deleteFox";
         }
-        service.deleteAnimal(fox.getId());
+        service.deleteAnimal(id);
         model.addAttribute("successMessage", "Fox has been deleted");
         return "redirect:/index";
     }
