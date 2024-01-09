@@ -29,8 +29,8 @@ public class MyRestController {
     public void putAnimal(@RequestBody Fox animal){myRestService.putAnimal(animal);}
 
     @PostMapping("/addAnimal")
-    public void postAnimal(@RequestBody Fox animal){
-        myRestService.addAnimal(animal);
+    public Fox postAnimal(@RequestBody Fox animal){
+        return myRestService.addAnimal(animal);
     }
 
     @DeleteMapping("/deleteAnimal/{id}")

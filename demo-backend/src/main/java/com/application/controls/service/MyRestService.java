@@ -30,9 +30,9 @@ public class MyRestService {
     public List<Fox> getAllAnimals(){
         return (List<Fox>) repository.findAll();
     }
-    public void addAnimal(Fox animal){
+    public Fox addAnimal(Fox animal){
         if(animal.getId() != null) throw new FoxAlreadyExistsException();
-        repository.save(animal);
+      return repository.save(animal);
     }
     public void putAnimal(Fox animal){
         if(!repository.existsById(animal.getId())) throw new FoxFailedToUpdateException();
