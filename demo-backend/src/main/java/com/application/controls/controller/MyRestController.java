@@ -2,17 +2,15 @@ package com.application.controls.controller;
 
 import com.application.controls.service.MyRestService;
 import com.application.objects.Fox;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class MyRestController {
     private final MyRestService myRestService;
-    @Autowired
-    public MyRestController(MyRestService myRestService) {
-        this.myRestService = myRestService;
-    }
 
     @GetMapping("/getAnimals")
     public List<Fox> getAllAnimals() {return myRestService.getAllAnimals();}
