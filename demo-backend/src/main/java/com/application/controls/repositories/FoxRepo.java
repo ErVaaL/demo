@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface FoxRepo extends CrudRepository<Fox,Long> {
-    Fox findByTails(int tails);
     List<Fox> findAllByTails(int tails);
-    Fox findByName(String name);
 }
