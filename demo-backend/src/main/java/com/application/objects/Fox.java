@@ -44,7 +44,4 @@ public class Fox {
         this.tails = tails;
     }
 
-    public Fox(String name) {
-        this.name = name;
-    }
 }

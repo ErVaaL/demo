@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class MyRestEntityExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {FoxNotFoundException.class})
-    protected ResponseEntity<Object> handleIllegalArgument(RuntimeException ex, WebRequest request){
+    protected ResponseEntity<Object> handleNotFound(RuntimeException ex, WebRequest request){
         return ResponseEntity.notFound().build();
     }
     @ExceptionHandler(value = {FoxAlreadyExistsException.class})
