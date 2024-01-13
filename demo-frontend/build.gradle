@@ -25,6 +25,7 @@ dependencies {
 
 
 }
+group = 'com.application'
 
 tasks.named('test') {
     useJUnitPlatform()
