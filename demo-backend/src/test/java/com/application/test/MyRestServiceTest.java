@@ -2,6 +2,7 @@ package com.application.test;
 import com.application.controls.repositories.FoxRepo;
 import com.application.controls.service.MyRestService;
 import com.application.exceptions.FoxAlreadyExistsException;
+import com.application.exceptions.FoxFailedToUpdateException;
 import com.application.exceptions.FoxNotFoundException;
 import com.application.objects.Fox;
 import org.junit.jupiter.api.AfterEach;
@@ -46,6 +47,14 @@ public class MyRestServiceTest {
 
         List<Fox> result = service.getFoxByTails(tails);
         assertEquals(foxesList, result);
+    }
+    @Test
+    public void testGetFoxById() {
+        Long id = 1L;
+        var testFox = new Fox("Kokos", 1);
+        when(repo.findById(id)).thenReturn(Optional.of(testFox));
+        assertEquals(testFox, service.getFoxById(id));
+
     }
 
     @Test
@@ -96,6 +105,54 @@ public class MyRestServiceTest {
                     service.getFoxById(5L);
                 });
             }
+    @Test
+    public void testFoxDeleteById() {
+        Fox testFox1 = new Fox("TestFox", 5);
+        testFox1.setId(4L);
+        when(repo.findById(testFox1.getId())).thenReturn(Optional.of(testFox1));
+
+        service.deleteAnimal(4L);
+        verify(repo, times(1)).deleteById(4L);
+    }
+    @Test
+    public void testFoxDeleteByIdThrowsNotFound () {
+        assertThrows(FoxNotFoundException.class, () -> {
+            service.deleteAnimal(5L);
+        });
+    }
+    @Test
+    public void testFoxUpdateById() {
+        Fox testFox1 = new Fox("TestFox", 5);
+        testFox1.setId(4L);
+        when(repo.existsById(testFox1.getId())).thenReturn(true);
+
+        service.putAnimal(testFox1);
+        verify(repo, times(1)).save(testFox1);
+    }
+    @Test
+    public void testFoxUpdateByIdThrowsNotFound () {
+        Fox testFox1 = new Fox("TestFox", 5);
+        testFox1.setId(4L);
+        when(repo.existsById(testFox1.getId())).thenReturn(false);
+
+        assertThrows(FoxFailedToUpdateException.class, () -> {
+            service.putAnimal(testFox1);
+        });
+    }
+    @Test
+    public void testFoxFilterByName() {
+        Fox testFox1 = new Fox("TestFox", 2);
+        Fox testFox2 = new Fox("TestFox", 3);
+        Fox testFox3 = new Fox("TestFox", 5);
+        List<Fox> foxes = new ArrayList<>();
+        foxes.add(testFox1);
+        foxes.add(testFox2);
+        foxes.add(testFox3);
+        when(repo.findAll()).thenReturn(foxes);
+
+        List<Fox> result = service.filterFoxByName("TestFox");
+        assertEquals(foxes, result);
+    }
 }
 
 
