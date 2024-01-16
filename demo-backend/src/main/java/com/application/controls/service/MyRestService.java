@@ -21,7 +21,7 @@ public class MyRestService {
 
     }
     public List<Fox> getFoxByTails(int tails){
-        return (List<Fox>) this.repository.findAllByTails(tails);
+        return this.repository.findAllByTails(tails);
     }
     public Fox getFoxById(Long id){
         if(repository.findById(id).isEmpty()) throw new FoxNotFoundException();
@@ -44,7 +44,7 @@ public class MyRestService {
     }
 
     public List<Fox> filterFoxByName(String name) {
-        var foxes = (List<Fox>)this.repository.findAll();
+        List<Fox> foxes = (List<Fox>)this.repository.findAll();
         return foxes.stream()
                 .filter(x->x.getName().equals(name))
                 .toList();

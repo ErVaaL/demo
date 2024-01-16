@@ -5,7 +5,6 @@ import com.application.exceptions.FoxFailedToUpdateException;
 import com.application.exceptions.FoxNotFoundException;
 import com.application.objects.Fox;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -26,10 +25,8 @@ public class MyRestService {
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {});
     }
-//    public List<Fox> getFoxByTails(int tails){return (List<Fox>) this.repository.findAllByTails(tails);}
-
     public Fox getFoxById(Long id){
-       var fox = restClient.get()
+       Fox fox = restClient.get()
                 .uri(API_URL + "/getAnimalById/"+id)
                 .retrieve()
                 .body(new ParameterizedTypeReference<Fox>() {
@@ -59,7 +56,7 @@ public class MyRestService {
     }
 
     public void deleteAnimal(Long id){
-        var foundFox = getFoxById(id);
+        Fox foundFox = getFoxById(id);
         if(foundFox == null ) throw new FoxNotFoundException();
         restClient.delete()
                  .uri(API_URL + "/deleteAnimal/"+id)
@@ -67,10 +64,4 @@ public class MyRestService {
                 .toBodilessEntity();
     }
 
-//    public List<Fox> filterFoxByName(String name) {
-//        var foxes = (List<Fox>)this.repository.findAll();
-//        return foxes.stream()
-//                .filter(x->x.getName().equals(name))
-//                .toList();
-//    }
 }
