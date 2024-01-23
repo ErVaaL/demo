@@ -1,5 +1,11 @@
 package com.application.objects;
 
+import jdk.jfr.DataAmount;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
 public class Fox {
 
     private Long id;
@@ -18,7 +24,7 @@ public class Fox {
         this.id = id;
     }
 
-    protected Fox(){}
+//    protected Fox(){}
 
     public Fox(String name, int tails){
         this.name=name;
