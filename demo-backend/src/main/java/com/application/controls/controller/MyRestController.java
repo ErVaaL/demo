@@ -24,7 +24,7 @@ public class MyRestController {
     public Fox findFoxById(@PathVariable("id") Long id){return this.myRestService.getFoxById(id);}
 
     @PutMapping("/updateAnimal")
-    public void putAnimal(@RequestBody Fox animal){myRestService.putAnimal(animal);}
+    public void putAnimal(@RequestBody Fox animal){myRestService.updateAnimal(animal);}
 
     @PostMapping("/addAnimal")
     public Fox postAnimal(@RequestBody Fox animal){

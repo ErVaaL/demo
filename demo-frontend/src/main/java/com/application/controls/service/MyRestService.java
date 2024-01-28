@@ -44,8 +44,8 @@ public class MyRestService {
                 .toBodilessEntity();
     }
     
-    public void putAnimal(Fox animal){
-        if(this.getFoxById(animal.getId()) == null) throw new FoxFailedToUpdateException();
+    public void updateAnimal(Fox animal){
+        if(getFoxById(animal.getId()) == null) throw new FoxFailedToUpdateException();
         restClient.put()
                 .uri(API_URL + "/updateAnimal")
                 .contentType(MediaType.APPLICATION_JSON)

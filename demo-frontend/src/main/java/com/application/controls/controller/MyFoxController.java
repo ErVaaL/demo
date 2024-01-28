@@ -59,7 +59,7 @@ public class MyFoxController {
             model.addAttribute("errorMessage", "Neither of fields can be null");
             return "editFox";
         }
-        service.putAnimal(fox);
+        service.updateAnimal(fox);
         redirectAttributes.addFlashAttribute("successMessage", "Fox edited");
         return "redirect:/index";
     }

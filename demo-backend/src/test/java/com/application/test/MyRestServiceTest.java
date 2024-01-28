@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.io.OptionalDataException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -126,7 +125,7 @@ public class MyRestServiceTest {
         testFox1.setId(4L);
         when(repo.existsById(testFox1.getId())).thenReturn(true);
 
-        service.putAnimal(testFox1);
+        service.updateAnimal(testFox1);
         verify(repo, times(1)).save(testFox1);
     }
     @Test
@@ -136,7 +135,7 @@ public class MyRestServiceTest {
         when(repo.existsById(testFox1.getId())).thenReturn(false);
 
         assertThrows(FoxFailedToUpdateException.class, () -> {
-            service.putAnimal(testFox1);
+            service.updateAnimal(testFox1);
         });
     }
     @Test

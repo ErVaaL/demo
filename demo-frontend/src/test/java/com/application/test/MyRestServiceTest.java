@@ -16,7 +16,9 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.boot.test.autoconfigure.web.client.RestClientTest;
 import org.springframework.boot.test.web.client.MockServerRestClientCustomizer;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import java.util.Arrays;
@@ -26,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 @RestClientTest
@@ -48,55 +51,106 @@ public class MyRestServiceTest {
                 .andRespond(withSuccess(
                         "[{\"id\":1,\"name\":\"Lumi\",\"tails\":9},{\"id\":2,\"name\":\"Alt\",\"tails\":9}]",
                         MediaType.APPLICATION_JSON));
-List<Fox> foxes = service.getAllAnimals();
+        List<Fox> foxes = service.getAllAnimals();
         assertEquals(2, foxes.size());
 
-//        RestClient.RequestHeadersUriSpec uriSpecMock = mock(RestClient.RequestHeadersUriSpec.class);
-//        RestClient.RequestHeadersSpec retrieveSpecMock = mock(RestClient.RequestHeadersSpec.class);
-//        RestClient.ResponseSpec responseSpecMock = mock(RestClient.ResponseSpec.class);
-//
-//        when(restClient.get()).thenReturn(uriSpecMock);
-//        when(uriSpecMock.uri(anyString())).thenReturn(retrieveSpecMock);
-//        when(retrieveSpecMock.retrieve()).thenReturn(responseSpecMock);
-//        when(responseSpecMock.body(any(ParameterizedTypeReference.class))).thenReturn(Arrays.asList(new Fox(), new Fox()));
-//
-//        List<Fox> actual = myRestService.getAllAnimals();
-//
-//        assertEquals(2, actual.size());
     }
 
     @Test
     public void testGetFoxById() {
-//        Long foxId = 1L;
-//        Fox expectedFox = new Fox();
-//        expectedFox.setId(foxId);
-//
-//        RestClient.RequestHeadersUriSpec uriSpecMock = mock(RestClient.RequestHeadersUriSpec.class);
-//        RestClient.RequestHeadersSpec retrieveSpecMock = mock(RestClient.RequestHeadersSpec.class);
-//        RestClient.ResponseSpec responseSpecMock = mock(RestClient.ResponseSpec.class);
-//
-//        when(restClient.get()).thenReturn(uriSpecMock);
-//        when(uriSpecMock.uri(MyRestService.API_URL + "/getAnimalById/" + foxId)).thenReturn(retrieveSpecMock);
-//        when(retrieveSpecMock.retrieve()).thenReturn(responseSpecMock);
-//        when(responseSpecMock.body(any(ParameterizedTypeReference.class))).thenReturn(expectedFox);
-//
-//        Fox actualFox = myRestService.getFoxById(foxId);
-//
-//        assertEquals(expectedFox, actualFox);
+        customizer.getServer().expect(requestTo(MyRestService.API_URL + "/getAnimalById/1"))
+                .andRespond(withSuccess(
+                        "{\"id\":1,\"name\":\"Lumi\",\"tails\":9}",
+                        MediaType.APPLICATION_JSON));
+        Fox fox = service.getFoxById(1L);
+        assertEquals(1L, fox.getId());
+        assertEquals("Lumi", fox.getName());
+        assertEquals(9, fox.getTails());
     }
 
     @Test
     public void testAddAnimal() {
-
+        Fox fox = new Fox("Lumi", 9);
+        customizer.getServer().expect(requestTo(MyRestService.API_URL + "/addAnimal"))
+                .andRespond(withSuccess(
+                        "{\"id\":1,\"name\":\"Lumi\",\"tails\":9}",
+                        MediaType.APPLICATION_JSON));
+        service.addAnimal(fox);
+        assertEquals("Lumi", fox.getName());
+        assertEquals(9, fox.getTails());
     }
 
     @Test
     public void testPutAnimal() {
+        Fox fox = new Fox("Lumi", 3);
+        fox.setId(2L);
+        customizer.getServer().expect(requestTo(MyRestService.API_URL + "/getAnimalById/" + fox.getId()))
+                .andRespond(withSuccess(
+                        "{\"id\":1,\"name\":\"Lumi\",\"tails\":3}",
+                        MediaType.APPLICATION_JSON));
 
+        customizer.getServer().expect(requestTo(MyRestService.API_URL + "/updateAnimal"))
+                .andRespond(withSuccess(
+                        "{\"id\":1,\"name\":\"Lumi\",\"tails\":9}",
+                        MediaType.APPLICATION_JSON));
+        service.updateAnimal(fox);
+        assertEquals("Lumi", fox.getName());
+        assertEquals(3, fox.getTails());
     }
 
     @Test
     public void testDeleteAnimal() {
-
+        Fox fox = new Fox("Lumi", 3);
+        fox.setId(2L);
+        customizer.getServer().expect(requestTo(MyRestService.API_URL + "/getAnimalById/" + fox.getId()))
+                .andRespond(withSuccess(
+                        "{\"id\":1,\"name\":\"Lumi\",\"tails\":3}",
+                        MediaType.APPLICATION_JSON));
+        customizer.getServer().expect(requestTo(MyRestService.API_URL + "/deleteAnimal/" + fox.getId()))
+                .andRespond(withSuccess(
+                        "{\"id\":1,\"name\":\"Lumi\",\"tails\":3}",
+                        MediaType.APPLICATION_JSON));
+        service.deleteAnimal(fox.getId());
+        assertEquals("Lumi", fox.getName());
+        assertEquals(3, fox.getTails());
     }
+    @Test
+    public void testDeleteAnimalThrowsException() {
+    Long foxId = 2L;
+
+     customizer.getServer().expect(requestTo(MyRestService.API_URL + "/getAnimalById/" + foxId))
+            .andRespond(withStatus(HttpStatus.NOT_FOUND));
+
+    assertThrows(HttpClientErrorException.NotFound.class, () -> service.deleteAnimal(foxId));
+    }
+    @Test
+    public void testGetFoxByIdThrowsException() {
+        Long foxId = 2L;
+        customizer.getServer().expect(requestTo(MyRestService.API_URL + "/getAnimalById/" + foxId))
+                .andRespond(withStatus(HttpStatus.NOT_FOUND));
+        assertThrows(HttpClientErrorException.NotFound.class, () -> service.getFoxById(foxId));
+    }
+    @Test
+    public void testAddAnimalThrowsException() {
+        Fox fox = new Fox("Lumi", 9);
+        customizer.getServer().expect(requestTo(MyRestService.API_URL + "/addAnimal"))
+                .andRespond(withStatus(HttpStatus.CONFLICT));
+        assertThrows(HttpClientErrorException.Conflict.class, () -> service.addAnimal(fox));
+    }
+    @Test
+    public void testUpdateAnimalThrowsException() {
+        Fox fox = new Fox("Lumi", 9);
+        fox.setId(2L);
+        customizer.getServer().expect(requestTo(MyRestService.API_URL + "/getAnimalById/" + fox.getId()))
+                .andRespond(withStatus(HttpStatus.NOT_FOUND));
+        assertThrows(HttpClientErrorException.NotFound.class, () -> service.updateAnimal(fox));
+    }
+    @Test
+    public void testGetAllAnimalsThrowsException() {
+        customizer.getServer().expect(requestTo(MyRestService.API_URL + "/getAnimals"))
+                .andRespond(withStatus(HttpStatus.NOT_FOUND));
+        assertThrows(HttpClientErrorException.NotFound.class, () -> service.getAllAnimals());
+    }
+    
+
 }

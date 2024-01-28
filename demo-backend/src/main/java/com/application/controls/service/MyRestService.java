@@ -34,7 +34,7 @@ public class MyRestService {
         if(animal.getId() != null) throw new FoxAlreadyExistsException();
       return repository.save(animal);
     }
-    public void putAnimal(Fox animal){
+    public void updateAnimal(Fox animal){
         if(!repository.existsById(animal.getId())) throw new FoxFailedToUpdateException();
         repository.save(animal);
     }
