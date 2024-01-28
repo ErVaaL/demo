@@ -3,19 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Animals</title>
-    <link href="http://localhost:8081/foxpage.css" rel="stylesheet" type="text/css">
-    <style>
-        .center{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    }
-    </style>
+    <link th:href="@{/css/foxpage.css}" rel="stylesheet" type="text/css">
 </head>
 <body id="index_page">
 <div class="center" id="fox_interface">
-    <h4 class="center">Foxes: </h4>
-    <table border="1" class="center" id="fox_table">
+    <h2 class="center">Foxes: </h2>
+    <table class="center" id="fox_table">
         <thead>
         <th>ID </th>
         <th>Name </th>
@@ -37,7 +30,7 @@
         </tbody>
     </table></br>
     <form action="#" th:action="@{/addFoxToBase}" method="post" class="center">
-        <input type="submit" value="Add fox" id="foxAdding" name="foxAdding">
+        <input type="submit" value="Add fox" id="green_button" name="fox_adding">
     </form>
 </div>
 </body>

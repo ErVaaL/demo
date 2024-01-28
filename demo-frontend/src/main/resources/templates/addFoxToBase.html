@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>ADDING FOXES</title>
-    <style>
-        .center{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
-    </style>
+    <link th:href="@{/css/foxpage.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <h3 class="center">Add Fox</h3>
@@ -22,10 +16,10 @@
         <label id="tails_label">Tails</label></br>
         <input th:field="*{tails}" type="input" name="tails" id="tails" required/>
     </div>
-    </br><input type="submit" value="Save" id="save_fox"/>
+    </br><input type="submit" value="Save" id="green_button"/>
 </form>&nbsp;&nbsp;
 <form action="/index" method="get" class="center">
-    <input type="submit" value="Back" id="go_back">
+    <input type="submit" value="Back" id="red_button">
 </form>
 </body>
 </html>

@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>DeleteFox</title>
-    <style>
-        .center{
-margin-left: auto;
-margin-right: auto;
-text-align: center;
-}
-    </style>
+    <link th:href="@{/css/foxpage.css}" rel="stylesheet" type="text/css">
 </head>
 <body>
 <div style="width: 200px; height 200px; margin-top: 20px; margin-left: auto; margin-right: auto; font-size: large">
-    <label>ID: </label><label th:text="${id}"></label></br>
-    <label>Name: </label><label th:field="${fox.name}" th:text="${fox.name}"></label></br>
-    <label>Tails: </label><label th:field="${fox.tails}" th:text="${fox.tails}"></label>
+    <label id="id_label">ID: </label><label th:text="${id}" class="object_value"></label></br>
+    <label id="name_label">Name: </label><label th:field="${fox.name}" th:text="${fox.name}" class="object_value"></label></br>
+    <label id="tails_label">Tails: </label><label th:field="${fox.tails}" th:text="${fox.tails}" class="object_value"></label>
 </div></br>
 <form action="#" th:object="${fox}" th:action="@{'/deleteFox/'+ ${id}}" method="post" class="center">
-    <input type="submit" value="Delete" id="deleteFox">
+    <input type="submit" value="Delete" id="red_button">
 </form>
 </body>
 </html>

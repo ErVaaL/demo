@@ -1,0 +1,78 @@
+body{
+    background-color: black;
+    color: darkgoldenrod;
+}
+#index_page{
+
+}
+#fox_table{
+    border: 2px solid darkgoldenrod;
+    width: 400px;
+    height: 60%;
+}
+th,td {
+    border: 1px solid darkgoldenrod;
+}
+#id_label{
+    font-size: x-large;
+}
+#foxDeleting{
+    color: deepskyblue;
+}
+#foxEditing{
+    color: deepskyblue;
+}
+#name_label{
+    font-size: x-large;
+}
+#name{
+    width: 200px;
+    height: 20px;
+}
+#tails_label{
+    font-size: x-large;
+}
+#tails{
+    width: 200px;
+    height: 20px;
+}
+#green_button{
+    width: 70px;
+    height: 30px;
+    background-color: yellowgreen;
+    color: white;
+    border-radius: 5px;
+    box-shadow: darkgreen;
+}
+#green_button:hover{
+    width: 70px;
+    height: 30px;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    box-shadow: darkgreen;
+}
+#red_button{
+    width: 70px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    box-shadow: darkred;
+}
+#red_button:hover{
+    width: 70px;
+    height: 30px;
+    background-color: darkred;
+    color: white;
+    border-radius: 5px;
+    box-shadow: darkred;
+}
+.object_value{
+    font-size: x-large;
+}
+.center{
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
