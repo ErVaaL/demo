@@ -16,17 +16,11 @@ public class MyRestAssuredControllerTest {
 
     @BeforeAll
     public static void setUp(){
-        Fox testFox = new Fox("testFox1",3);
-        testFox.setId(5L);
-        with()
-                .body(testFox)
-                .contentType("application/json")
-                .post(URI + "/addAnimal");
+
     }
     @AfterAll
     public static void tearDown(){
-        with()
-                .delete(URI + "/deleteAnimal/5");
+
     }
 
     @Test
@@ -68,7 +62,7 @@ public class MyRestAssuredControllerTest {
     @Test
     public void testFoxEditing(){
         Fox fox = new Fox("testFox", 7);
-        fox.setId(1L);
+        fox.setId(4L);
         with()
                 .body(fox)
                 .contentType("application/json")
@@ -90,7 +84,7 @@ public class MyRestAssuredControllerTest {
     @Test
     public void testFoxDeleting(){
         when()
-                .delete(URI + "/deleteAnimal/4")
+                .delete(URI + "/deleteAnimal/5")
                 .then()
                 .statusCode(200);
     }
