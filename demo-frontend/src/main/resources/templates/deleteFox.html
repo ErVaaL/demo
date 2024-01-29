@@ -13,6 +13,9 @@
 </div></br>
 <form action="#" th:object="${fox}" th:action="@{'/deleteFox/'+ ${id}}" method="post" class="center">
     <input type="submit" value="Delete" id="red_button" name="delete_fox">
+</form></br>
+<form action="/index" method="get" class="center">
+    <input type="submit" value="Back" id="green_button" name="go_back">
 </form>
 </body>
 </html>

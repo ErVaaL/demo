@@ -27,7 +27,9 @@ public class SeleniumTestPage {
     @FindBy(name = "save_fox")
     WebElement saveFoxSubmit;
     @FindBy(name = "delete_fox")
-    WebElement deleteFox;
+    WebElement deleteFoxSubmit;
+    @FindBy(name = "go_back")
+    WebElement goBackSubmit;
     public void open(){ webDriver.get(indexURL);}
     public void close(){ webDriver.close();}
     public void addFox(){
@@ -47,6 +49,18 @@ public class SeleniumTestPage {
     }
     public void deleteFox(){
         foxDeletingLink.click();
-        deleteFox.click();
+        deleteFoxSubmit.click();
+    }
+    public void testGoBackForAddingFox(){
+        foxAddingSubmit.click();
+        goBackSubmit.click();
+    }
+    public void testGoBackForEditingFox(){
+        foxEditingLink.click();
+        goBackSubmit.click();
+    }
+    public void testGoBackForDeletingFox(){
+        foxDeletingLink.click();
+        goBackSubmit.click();
     }
 }

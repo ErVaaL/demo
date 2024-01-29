@@ -19,8 +19,12 @@ public class SeleniumTest {
         page.open();
 
         page.addFox();
+        page.testGoBackForAddingFox();
         page.editFox();
+        page.testGoBackForEditingFox();
         page.deleteFox();
+        page.testGoBackForDeletingFox();
+
 
         page.close();
     }
