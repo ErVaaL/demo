@@ -74,7 +74,7 @@ public class MyRestServiceTest {
         Mockito.when(repo.save(captor.capture())).thenReturn(testFox1);
 
         service.addAnimal(testFox1);
-        Mockito.verify(repo, Mockito.times(4))
+        Mockito.verify(repo, Mockito.times(7))
                 .save(Mockito.any());
         Fox foxFromSave = captor.getValue();
         assertEquals(testFox1,foxFromSave);
